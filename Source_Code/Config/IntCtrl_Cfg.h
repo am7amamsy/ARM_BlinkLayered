@@ -4,7 +4,7 @@
 /**        File: IntCtrl_Cfg.h
  *       Module: -
  *
- *  Description: <Write file description here>
+ *  Description: Header file for pre-compile configurations of IntCtrl driver
  *
  *
  **************************************************************************************************************************/
@@ -15,11 +15,13 @@
  *  INCLUDES
  **************************************************************************************************************************/
 
-
 /***************************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  **************************************************************************************************************************/
+#define APINT_KEY 0xFA05
+#define INTERRUPT_BASEPRI_START_BIT 5U
 
+#define NUMBER_OF_INTERRUPTS 85U
 
 /***************************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
@@ -28,7 +30,6 @@
 /***************************************************************************************************************************
  *  GLOBAL FUNCTION PROTOTYPES
  **************************************************************************************************************************/
-unsigned char GetGroupPriorityPoint(void);
 
 /***************************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURESERVED
@@ -60,9 +61,9 @@ typedef enum
     UART1,
     SSI0,
     I2C0,
-    PMW0_FAULT,
-    PMW0_GENERATOR_0,
-    PMW0_GENERATOR_1,
+    PWM0_FAULT,
+    PWM0_GENERATOR_0,
+    PWM0_GENERATOR_1,
     PWM0_GENERATOR_2,
     QEI0,
     ADC0_SEQUENCE_0,
@@ -71,7 +72,7 @@ typedef enum
     ADC0_SEQUENCE_3,
     WATCHDOG_TIMERS_0AND1,
     TIMER1632_0A,
-    TIMER1632_OB,
+    TIMER1632_0B,
     TIMER1632_1A,
     TIMER1632_1B,
     TIMER1632_2A,
@@ -191,14 +192,6 @@ typedef enum
     PWM1_GENERATOR_3,
     PWM1_FAULT,
 }IntCtrl_InterruptType;
-
-typedef enum
-{
-    XXX,
-    XXY = 5,
-    XYY,
-    YYY,
-}IntCtrl_PriorityPoint;
 
 #endif  /* INTCTRL_CFG_H */
  

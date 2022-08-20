@@ -55,11 +55,15 @@
 void IntCtrl_Init(void)
 {
     /*TODO: Configure grouping\subgrouping system in APINT register in SCB*/
-		APINT.B.VECTKEY  = 0xFA05;												//Write the register key to the VECTKEY field
-		APINT.B.PRIGROUP = GetGroupPriorityPoint();				//Split the group priority from subpriority
-	
-    /*TODO: Assign group\subgroup priority in NVIC_PRIx NVIC and SCB_SYSPRIx Registers*/
+		APINT.B.VECTKEY  = APINT_KEY;											//Write the register key to the VECTKEY field
+		APINT.B.PRIGROUP = GetGroupPriorityPoint();			//Split the group priority from subpriority
 		
+	  /*TODO: Assign the base priority group of the system in the BASEPRI special register*/
+    RegisterType basePriorityValue = GetBasePriorityValue();
+		SetBasePriorityValue(basePriorityValue);
+		
+		/*TODO: Assign group\subgroup priority in NVIC_PRIx NVIC and SCB_SYSPRIx Registers*/
+		SetGroupPriority();
 
 
 	  /*TODO: Enable/Disable interrupts and exceptions based on user configuration in
