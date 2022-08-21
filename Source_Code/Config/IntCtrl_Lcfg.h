@@ -151,6 +151,12 @@ void SetBasePriorityValue(RegisterType basePriorityValue);
  ***************************************************************************************/
 void SetGroupPriority(void);
 
+void ClearInterruptGates(void);
+
+void SCB_ExceptionEnable(void);
+
+void NVIC_InterruptEnable(void);
+
 #endif  /* IntCtrl_Lcfg_H */
  
 /****************************************************************************************

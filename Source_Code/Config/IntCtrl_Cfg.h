@@ -22,6 +22,7 @@
 #define INTERRUPT_BASEPRI_START_BIT 5U
 
 #define NUMBER_OF_INTERRUPTS 85U
+#define NUMBER_OF_SYSTEM_EXCEPTIONS 15U
 
 /***************************************************************************************************************************
  *  GLOBAL FUNCTION MACROS

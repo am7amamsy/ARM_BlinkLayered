@@ -68,8 +68,9 @@ void IntCtrl_Init(void)
 
 	  /*TODO: Enable/Disable interrupts and exceptions based on user configuration in
             NVIC_ENx and SCB_Sys registers*/
-    
-	 
+	  ClearInterruptGates();
+		SCB_ExceptionEnable();
+		NVIC_InterruptEnable();
 }
  
 /****************************************************************************************

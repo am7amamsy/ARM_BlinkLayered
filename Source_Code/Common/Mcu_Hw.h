@@ -21,24 +21,6 @@
  **************************************************************************************************************************/
 typedef struct
 {
-    uint32 VECTRESET  :1;
-    uint32 VECTCLRACT :1;
-    uint32 SYSRESREQ  :1;
-    uint32            :5;
-    uint32 PRIGROUP   :3;
-    uint32            :4;
-    uint32 ENDIANESS  :1;
-    uint32 VECTKEY    :16;
-}APINT_BF;
-
-typedef union
-{
-    uint32 R;
-    APINT_BF B;
-}APINT_TAG;
-
-typedef struct
-{
     uint32      :5;
     uint32 INTA :3;
     uint32      :5;
@@ -54,6 +36,24 @@ typedef union
     uint32 R;
     PRIn_BF B;
 }PRIn_TAG;
+
+typedef struct
+{
+    uint32 VECTRESET  :1;
+    uint32 VECTCLRACT :1;
+    uint32 SYSRESREQ  :1;
+    uint32            :5;
+    uint32 PRIGROUP   :3;
+    uint32            :4;
+    uint32 ENDIANESS  :1;
+    uint32 VECTKEY    :16;
+}APINT_BF;
+
+typedef union
+{
+    uint32 R;
+    APINT_BF B;
+}APINT_TAG;
 
 typedef struct
 {
@@ -100,11 +100,50 @@ typedef union
     SYSPRI3_BF B;
 }SYSPRI3_TAG;
 
+typedef struct
+{
+    uint32 MEMA   :1;
+    uint32 BUSA   :1;
+    uint32        :1;
+    uint32 USGA   :1;
+    uint32        :3;
+    uint32 SVCA   :1;
+    uint32 MON    :1;
+    uint32        :1;
+    uint32 PNDSV  :1;
+    uint32 TICK   :1;
+    uint32 USAGEP :1;
+    uint32 MEMP   :1;
+    uint32 BUSP   :1;
+    uint32 SVC    :1;
+    uint32 MEM    :1;
+    uint32 BUS    :1;
+    uint32 USAGE  :1;
+    uint32        :13;
+}SYSHNDCTRL_BF;
+
+typedef union
+{
+    uint32 R;
+    SYSHNDCTRL_BF B;
+}SYSHNDCTRL_TAG;
+
+
+
 /***************************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  **************************************************************************************************************************/
 #define CORTEXM4_PERI_BASE_ADDRESS  0xE000E000
-#define APINT                       (*((volatile APINT_TAG*)(CORTEXM4_PERI_BASE_ADDRESS + 0xD0C)))
+#define EN0                         (*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS + 0x100)))
+#define EN1                         (*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS + 0x104)))
+#define EN2                         (*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS + 0x108)))
+#define EN3                         (*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS + 0x10C)))
+#define EN4                         (*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS + 0x110)))
+#define DIS0                        (*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS + 0x180)))
+#define DIS1                        (*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS + 0x184)))
+#define DIS2                        (*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS + 0x188)))
+#define DIS3                        (*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS + 0x18C)))
+#define DIS4                        (*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS + 0x190)))
 #define PRI0                        (*((volatile PRIn_TAG*)(CORTEXM4_PERI_BASE_ADDRESS + 0x400)))
 #define PRI1                        (*((volatile PRIn_TAG*)(CORTEXM4_PERI_BASE_ADDRESS + 0x404)))
 #define PRI2                        (*((volatile PRIn_TAG*)(CORTEXM4_PERI_BASE_ADDRESS + 0x408)))
@@ -140,9 +179,12 @@ typedef union
 #define PRI32                       (*((volatile PRIn_TAG*)(CORTEXM4_PERI_BASE_ADDRESS + 0x480)))
 #define PRI33                       (*((volatile PRIn_TAG*)(CORTEXM4_PERI_BASE_ADDRESS + 0x484)))
 #define PRI34                       (*((volatile PRIn_TAG*)(CORTEXM4_PERI_BASE_ADDRESS + 0x488)))
+#define INTCTRL                     (*((volatile INTCTRL_TAG*)(CORTEXM4_PERI_BASE_ADDRESS + 0xD04)))
+#define APINT                       (*((volatile APINT_TAG*)(CORTEXM4_PERI_BASE_ADDRESS + 0xD0C)))
 #define SYSPRI1                     (*((volatile SYSPRI1_TAG*)(CORTEXM4_PERI_BASE_ADDRESS + 0xD18)))
 #define SYSPRI2                     (*((volatile SYSPRI2_TAG*)(CORTEXM4_PERI_BASE_ADDRESS + 0xD1C)))
 #define SYSPRI3                     (*((volatile SYSPRI3_TAG*)(CORTEXM4_PERI_BASE_ADDRESS + 0xD20)))
+#define SYSHNDCTRL                  (*((volatile SYSHNDCTRL_TAG*)(CORTEXM4_PERI_BASE_ADDRESS + 0xD24)))
 
 /***************************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES

@@ -182,8 +182,8 @@ RegisterType GetBasePriorityValue(void)
  ***************************************************************************************/
 void SetBasePriorityValue(RegisterType basePriorityValue)
 {
-		__asm(" LDR R8, %[in]" : : [in] "g" (basePriorityValue));
-		__asm(" MSR BASEPRI, R8");
+		__asm(" LDR R0, %[in]" : : [in] "g" (basePriorityValue));
+		__asm(" MSR BASEPRI, R0");
 }
 
 /***************************************************************************************
@@ -460,6 +460,80 @@ void SetGroupPriority(void)
 		}
 	}
 }
+
+void ClearInterruptGates(void)
+{
+	/*TODO: Enable FAULTMASK register*/
+	__asm(" LDR R1, 0x00");
+	__asm(" MSR FAULTMASK, R1");
+	
+	/*TODO: Enable PRIMASK register*/
+	__asm(" LDR R2, 0x00");
+	__asm(" MSR PRIMASK, R2");
+}
+
+void EnablePrivilegedMode(void)
+{
+	/*TODO: Enable supervisor call*/
+	__asm(" SVC #0");
+	
+	/*TODO: Handle supervisor call*/
+	/*TODO: Change to privileged mode in CONTROL register*/
+}
+
+void SCB_ExceptionEnable(void)
+{
+	
+}
+
+void NVIC_InterruptEnable(void)
+{
+	uint8 i = 0;
+	for(; i < NUMBER_OF_INTERRUPTS; i++)
+  {
+		if((IntCtrl_InterruptConfig.interruptTypeAndState[i][0] - NUMBER_OF_SYSTEM_EXCEPTIONS) >= 0 &&
+			 (IntCtrl_InterruptConfig.interruptTypeAndState[i][0] - NUMBER_OF_SYSTEM_EXCEPTIONS) <= 31)
+		{
+			if(IntCtrl_InterruptConfig.interruptTypeAndState[i][1] == STD_ON)
+				EN0 |= (1 << IntCtrl_InterruptConfig.interruptTypeAndState[i][0]);
+			else
+				DIS0 |= (1 << IntCtrl_InterruptConfig.interruptTypeAndState[i][0]);
+		}
+		else if((IntCtrl_InterruptConfig.interruptTypeAndState[i][0] - NUMBER_OF_SYSTEM_EXCEPTIONS) >= 32 &&
+			      (IntCtrl_InterruptConfig.interruptTypeAndState[i][0] - NUMBER_OF_SYSTEM_EXCEPTIONS) <= 63)
+		{
+			if(IntCtrl_InterruptConfig.interruptTypeAndState[i][1] == STD_ON)
+				EN1 |= (1 << IntCtrl_InterruptConfig.interruptTypeAndState[i][0]);
+			else
+				DIS1 |= (1 << IntCtrl_InterruptConfig.interruptTypeAndState[i][0]);
+		}
+		else if((IntCtrl_InterruptConfig.interruptTypeAndState[i][0] - NUMBER_OF_SYSTEM_EXCEPTIONS) >= 64 &&
+			      (IntCtrl_InterruptConfig.interruptTypeAndState[i][0] - NUMBER_OF_SYSTEM_EXCEPTIONS) <= 95)
+		{
+			if(IntCtrl_InterruptConfig.interruptTypeAndState[i][1] == STD_ON)
+				EN2 |= (1 << IntCtrl_InterruptConfig.interruptTypeAndState[i][0]);
+			else
+				DIS2 |= (1 << IntCtrl_InterruptConfig.interruptTypeAndState[i][0]);
+		}
+		else if((IntCtrl_InterruptConfig.interruptTypeAndState[i][0] - NUMBER_OF_SYSTEM_EXCEPTIONS) >= 96 &&
+			      (IntCtrl_InterruptConfig.interruptTypeAndState[i][0] - NUMBER_OF_SYSTEM_EXCEPTIONS) <= 127)
+		{
+			if(IntCtrl_InterruptConfig.interruptTypeAndState[i][1] == STD_ON)
+				EN3 |= (1 << IntCtrl_InterruptConfig.interruptTypeAndState[i][0]);
+			else
+				DIS3 |= (1 << IntCtrl_InterruptConfig.interruptTypeAndState[i][0]);
+		}
+		else if((IntCtrl_InterruptConfig.interruptTypeAndState[i][0] - NUMBER_OF_SYSTEM_EXCEPTIONS) >= 128 &&
+			      (IntCtrl_InterruptConfig.interruptTypeAndState[i][0] - NUMBER_OF_SYSTEM_EXCEPTIONS) <= 138)
+		{
+			if(IntCtrl_InterruptConfig.interruptTypeAndState[i][1] == STD_ON)
+				EN4 |= (1 << IntCtrl_InterruptConfig.interruptTypeAndState[i][0]);
+			else
+				DIS4 |= (1 << IntCtrl_InterruptConfig.interruptTypeAndState[i][0]);
+		}
+	}
+}
+
 /****************************************************************************************
  *  END OF FILE: IntCtrl_Lcfg.c
  ***************************************************************************************/
