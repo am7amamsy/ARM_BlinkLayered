@@ -52,7 +52,7 @@ const Gpt_ConfigType Gpt_ChannelConfig[NUMBER_OF_CHANNELS];
  * \Return value    : Std_ReturnType  E_OK
  *                                    E_NOT_OK
  ***************************************************************************************/
-void Gpt_Init(const Gpt_ConfigType* configPtr)
+/*void Gpt_Init(const Gpt_ConfigType* configPtr)
 {
 	
 	switch(configPtr->GptChannelId)
@@ -271,7 +271,7 @@ void Gpt_StartTimer(Gpt_ChannelType channel, Gpt_ValueType value)
 			TIMER3264_5_GPTMTAMATCHR = value;
 			break;
 	}
-}
+}*/
 /*
 void Gpt_StopTimer(Gpt_ChannelType channel);
 void Gpt_Notification(void);

@@ -49,7 +49,7 @@ enum
     GPT_PREDEF_TIMER_1US_16BIT,
     GPT_PREDEF_TIMER_1US_24BIT,
     GPT_PREDEF_TIMER_1US_32BIT
-}Gpt_PredefTimerType;
+};
 
 enum
 {
@@ -65,7 +65,7 @@ enum
     TIMER3264_3,
     TIMER3264_4,
     TIMER3264_5
-}GptChannelId;
+};
 
 /***************************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES

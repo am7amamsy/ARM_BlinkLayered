@@ -78,7 +78,7 @@ enum
     PORTF_CHANNEL2,
     PORTF_CHANNEL3,
     PORTF_CHANNEL4
-}DIO_ChannelId;
+};
 
 enum
 {
@@ -88,7 +88,7 @@ enum
     PORTD,
     PORTE,
     PORTF
-}DIO_PortId;
+};
 
 /***************************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES
@@ -110,6 +110,7 @@ enum
  * \Return value    : Std_ReturnType  E_OK
  *                                    E_NOT_OK
  ***************************************************************************************/
+void GPIO_Init(void);
 Dio_LevelType Dio_ReadChannel(Dio_ChannelType channelId);
 void Dio_WriteChannel(Dio_ChannelType channelId, Dio_LevelType level);
 Dio_PortLevelType Dio_ReadPort(Dio_PortType portId);

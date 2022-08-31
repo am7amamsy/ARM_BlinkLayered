@@ -1,22 +1,34 @@
-#include "blink.h"
+#include "Blink.h"
+#include "IntCtrl.h"
+#include "SysTick.h"
 
-#define ON_TIME 		1000
-#define OFF_TIME 		500
-#define LED_CHANNEL PORTD_CHANNEL2
+extern void (*SysTick_NotificationFunctionPtr)(void);
 
 int main(void)
 {
-	void IntCtrl_init();
-	void GPT_Init();
+	IntCtrl_Init();
 	
+	SysTick_EnableNotification();
+	SysTick_Notification(LED_Blink);
+	
+	GPIO_Init();
+	
+	SysTick_StartTimer(timeOn);
+
 	while(1)
 	{
 		
 	}
-	return 0;
 }
 
-ISR(SysTick_Handler)
+void SVC_Handler(void)
 {
-	LED_Blink(LED_Channel, ON_Time, OFF_Time);
+	__asm(" LDR R4, 0x04");
+	__asm(" MSR CONTROL, R4");
+}
+
+void SysTick_Handler(void)
+{	
+	
+	(*SysTick_NotificationFunctionPtr)();
 }

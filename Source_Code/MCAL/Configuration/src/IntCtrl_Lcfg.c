@@ -27,14 +27,14 @@ const struct IntCtrl_InterruptConfig
 	uint8 groupAndSubgroup;
 	uint8 basePriority;
 	uint8 interruptTypeAndState[NUMBER_OF_INTERRUPTS][3];
-}IntCtrl_InterruptConfig = {INTERRUPT_1_GRPS_8_SUBS, INTERRUPT_BASEPRI_NONE,
+}IntCtrl_InterruptConfig = {INTERRUPT_1_GRPS_8_SUBS, INTERRUPT_BASEPRI_4,
 														{{MEMORY_MANAGEMENT, STD_OFF, GRP_0_SUB_0_PRI_XXX},
 														 {BUS_FAULT, STD_OFF, GRP_0_SUB_0_PRI_XXX},
 														 {USAGE_FAULT, STD_OFF, GRP_0_SUB_0_PRI_XXX},
 														 {SV_CALL, STD_OFF, GRP_0_SUB_0_PRI_XXX},
 														 {DEBUG_MONITOR, STD_OFF, GRP_0_SUB_0_PRI_XXX},
 														 {PENDSV, STD_OFF, GRP_0_SUB_0_PRI_XXX},
-														 {SYSTICK, STD_OFF, GRP_0_SUB_0_PRI_XXX},
+														 {SYSTICK, STD_ON, GRP_2_SUB_0_PRI_XXX},
 														 {GPIO_PORT_A, STD_OFF, GRP_0_SUB_0_PRI_XXX},
 														 {GPIO_PORT_B, STD_OFF, GRP_0_SUB_0_PRI_XXX},
 														 {GPIO_PORT_C, STD_OFF, GRP_0_SUB_0_PRI_XXX},
@@ -145,7 +145,8 @@ const struct IntCtrl_InterruptConfig
  ***************************************************************************************/
 uint8 GetGroupPriorityPoint(void)
 { 
-	return INTERRUPT_1_GRPS_8_SUBS;
+	uint8 groupPriorityPoint = IntCtrl_InterruptConfig.groupAndSubgroup;
+	return groupPriorityPoint;
 }
 
 /***************************************************************************************
@@ -167,7 +168,9 @@ uint8 GetGroupPriorityPoint(void)
  ***************************************************************************************/
 RegisterType GetBasePriorityValue(void)
 {
-	return (INTERRUPT_BASEPRI_NONE << INTERRUPT_BASEPRI_START_BIT);
+	RegisterType testValue = 5 << 5U;
+	RegisterType basePriorityValue = IntCtrl_InterruptConfig.basePriority << INTERRUPT_BASEPRI_START_BIT;
+	return basePriorityValue;
 }
 
 /***************************************************************************************
@@ -182,8 +185,8 @@ RegisterType GetBasePriorityValue(void)
  ***************************************************************************************/
 void SetBasePriorityValue(RegisterType basePriorityValue)
 {
-		__asm(" LDR R0, %[in]" : : [in] "g" (basePriorityValue));
-		__asm(" MSR BASEPRI, R0");
+		__asm(" LDR R1, %[in]" : : [in] "g" (basePriorityValue));
+		__asm(" MSR BASEPRI, R1");
 }
 
 /***************************************************************************************
@@ -464,18 +467,18 @@ void SetGroupPriority(void)
 void ClearInterruptGates(void)
 {
 	/*TODO: Enable FAULTMASK register*/
-	__asm(" LDR R1, 0x00");
-	__asm(" MSR FAULTMASK, R1");
+	__asm(" MOV R2, 0x00");
+	__asm(" MSR FAULTMASK, R2");
 	
 	/*TODO: Enable PRIMASK register*/
-	__asm(" LDR R2, 0x00");
-	__asm(" MSR PRIMASK, R2");
+	__asm(" MOV R3, 0x00");
+	__asm(" MSR PRIMASK, R3");
 }
 
 void EnablePrivilegedMode(void)
 {
 	/*TODO: Enable supervisor call*/
-	__asm(" SVC #0");
+	__asm(" SVC #1");
 	
 	/*TODO: Handle supervisor call*/
 	/*TODO: Change to privileged mode in CONTROL register*/
