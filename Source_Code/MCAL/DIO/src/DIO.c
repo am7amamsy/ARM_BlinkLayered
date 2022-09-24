@@ -90,7 +90,7 @@ Dio_LevelType Dio_ReadChannel(Dio_ChannelType channelId)
 			level = PORTB_CHANNEL(0);
 			break;
 		case PORTB_CHANNEL1:
-			level = PORTB_CHANNEL1;
+			level = PORTB_CHANNEL(1);
 			break;
 		case PORTB_CHANNEL2:
 			level = PORTB_CHANNEL(2);
@@ -114,7 +114,7 @@ Dio_LevelType Dio_ReadChannel(Dio_ChannelType channelId)
 			level = PORTC_CHANNEL(0);
 			break;
 		case PORTC_CHANNEL1:
-			level = PORTC_CHANNEL1;
+			level = PORTC_CHANNEL(1);
 			break;
 		case PORTC_CHANNEL2:
 			level = PORTC_CHANNEL(2);
@@ -138,7 +138,7 @@ Dio_LevelType Dio_ReadChannel(Dio_ChannelType channelId)
 			level = PORTD_CHANNEL(0);
 			break;
 		case PORTD_CHANNEL1:
-			level = PORTD_CHANNEL1;
+			level = PORTD_CHANNEL(1);
 			break;
 		case PORTD_CHANNEL2:
 			level = PORTD_CHANNEL(2);
@@ -162,7 +162,7 @@ Dio_LevelType Dio_ReadChannel(Dio_ChannelType channelId)
 			level = PORTE_CHANNEL(0);
 			break;
 		case PORTE_CHANNEL1:
-			level = PORTE_CHANNEL1;
+			level = PORTE_CHANNEL(1);
 			break;
 		case PORTE_CHANNEL2:
 			level = PORTE_CHANNEL(2);
@@ -180,7 +180,7 @@ Dio_LevelType Dio_ReadChannel(Dio_ChannelType channelId)
 			level = PORTF_CHANNEL(0);
 			break;
 		case PORTF_CHANNEL1:
-			level = PORTF_CHANNEL1;
+			level = PORTF_CHANNEL(1);
 			break;
 		case PORTF_CHANNEL2:
 			level = PORTF_CHANNEL(2);

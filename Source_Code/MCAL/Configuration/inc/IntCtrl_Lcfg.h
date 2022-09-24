@@ -156,6 +156,8 @@ void SCB_ExceptionEnable(void);
 
 void NVIC_InterruptEnable(void);
 
+void EnablePrivilegedMode(void);
+
 #endif  /* IntCtrl_Lcfg_H */
  
 /****************************************************************************************

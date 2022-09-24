@@ -13,7 +13,7 @@ int main(void)
 	
 	GPIO_Init();
 	
-	SysTick_StartTimer(timeOn);
+	Blink_Init();
 
 	while(1)
 	{

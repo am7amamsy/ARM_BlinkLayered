@@ -1,43 +1,41 @@
 /***************************************************************************************************************************
  *  FILE DESCRIPTION
  *  ----------------------------------------------------------------------------------------------------------------------*/
-/**        File: SysTick_Cfg.h
- *       Module: SysTick_Cfg
+/**        File: Button_Cfg.h
+ *       Module: Button_Cfg
  *
- *  Description: A header file for SysTick pre-compile configurations
+ *  Description: A header file for the Button pre-compile configuration
  *
  *
  **************************************************************************************************************************/
-#ifndef SysTick_Cfg_H
-#define SysTick_Cfg_H
+#ifndef Button_Cfg_H
+#define Button_Cfg_H
 
 /***************************************************************************************************************************
  *  INCLUDES
  **************************************************************************************************************************/
 #include "Std_Types.h"
-#include "Mcu_Hw.h"
+#include "DIO.h"
 
 /***************************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  **************************************************************************************************************************/
-#define STD_LOW     0
-#define STD_HIGH    1
+#define BUTTON_1_CH  PORTB_CHANNEL0
+#define BUTTON_2_CH	 PORTB_CHANNEL1
 
-#define SYSTEM_CLK_FREQ 80000000UL
-#define PIOSC_FREQ      16000000UL
+#define BUTTON_OFF STD_LOW
+#define BUTTON_ON  STD_HIGH
 
-#define SYSTICK_SYSTEM_CLK	0
-#define SYSTICK_PIOSCBY4		1
-#define STRELOAD_MAX_VAL		0x00FFFFFF
-
+#define Button_LevelType   Dio_LevelType
+#define Button_ChannelType Dio_ChannelType
 /***************************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
  **************************************************************************************************************************/
 
 
-#endif  /* SysTick_Cfg_H */
+#endif  /* Button_Cfg_H */
  
 /****************************************************************************************
- *  END OF FILE: SysTick_Cfg.h
+ *  END OF FILE: Button_Cfg.h
  ***************************************************************************************/
  

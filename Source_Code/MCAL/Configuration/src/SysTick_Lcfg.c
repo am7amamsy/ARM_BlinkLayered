@@ -23,6 +23,7 @@
  *  LOCAL DATA
  **************************************************************************************************************************/
 const SysTick_ConfigType SysTick_Config = {0x01000000, SYSTICK_PIOSCBY4};
+SysTick_ValueType overflowVal = 0;
 
 /***************************************************************************************************************************
  *  GLOBAL DATA
@@ -70,8 +71,21 @@ void SysTick_InterruptDisable(void)
 
 void SysTick_CountSet(SysTick_ValueType value)
 {
-	SysTick_ValueType tickValue = (((PIOSC_FREQ / 4) * value) / 4) - 1;
-	STRELOAD = tickValue;
+	if(overflowVal == 0)
+	{
+			SysTick_ValueType tickValue = ((PIOSC_FREQ / 1000) * value) - 1; 
+			while(tickValue > STRELOAD_MAX_VAL)
+			{
+					tickValue -= STRELOAD_MAX_VAL;
+					overflowVal++;
+			}
+			STRELOAD = tickValue;
+	}
+	else
+	{
+			STRELOAD = STRELOAD_MAX_VAL;
+			overflowVal--;
+	}
 	STCTRL.B.ENABLE = STD_HIGH;
 }
 
@@ -82,7 +96,7 @@ void SysTick_CountDisable(void)
 
 SysTick_ValueType SysTick_CountRemaining(void)
 {
-	SysTick_ValueType value = ((STCURRENT + 1) * 4) / (PIOSC_FREQ / 4);
+	SysTick_ValueType value = ((STCURRENT + 1) * 1000) / PIOSC_FREQ;
 	return value;
 }
 
