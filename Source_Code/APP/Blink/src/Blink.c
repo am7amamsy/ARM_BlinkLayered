@@ -138,6 +138,72 @@ void LED_Blink()
 				SysTick_StartTimer(timeOff);
 		}
 }
+
+void Blink_Modify()
+{
+		static uint8 timeOnIncrease = STD_LOW;
+
+		static Button_LevelType Button_1_State_Previous = BUTTON_OFF;
+		static Button_LevelType Button_2_State_Previous = BUTTON_OFF;
+		
+		Button_LevelType Button_1_State_Current = Button_ReadChannel(BUTTON_1_CH);
+		if(Button_1_State_Current == BUTTON_ON && Button_1_State_Previous == BUTTON_OFF)
+		{
+				if(timeOnIncrease == STD_HIGH)
+				{
+						timeOnIncrease = STD_LOW;
+				}
+				else
+				{
+						timeOnIncrease = STD_HIGH;
+				}
+		}
+		Button_1_State_Previous = Button_1_State_Current;
+	
+		Button_LevelType Button_2_State_Current = Button_ReadChannel(BUTTON_2_CH);
+		if(Button_2_State_Current == BUTTON_ON && Button_2_State_Previous == BUTTON_OFF)
+		{
+				if (timeOnIncrease == STD_LOW)
+				{
+						if(timeOff < SYSTICK_MAX_VAL)
+						{
+								timeOff += BUTTON_MOD_VAL;
+						}
+						else
+						{
+								timeOff = SYSTICK_MAX_VAL;
+						}
+						if(timeOn >= BUTTON_MOD_VAL)
+						{
+								timeOn -= BUTTON_MOD_VAL;
+						}
+						else
+						{
+								timeOn = SYSTICK_MIN_VAL;
+						}
+				}
+				else
+				{
+						if(timeOn < SYSTICK_MAX_VAL)
+						{
+								timeOn += BUTTON_MOD_VAL;
+						}
+						else
+						{
+								timeOn = SYSTICK_MAX_VAL;
+						}
+						if(timeOff >= BUTTON_MOD_VAL)
+						{
+								timeOff -= BUTTON_MOD_VAL;
+						}
+						else
+						{
+								timeOff = SYSTICK_MIN_VAL;
+						}
+				}
+		}
+		Button_2_State_Previous = Button_2_State_Current;		
+}
  
 /****************************************************************************************
  *  END OF FILE: Blink.c

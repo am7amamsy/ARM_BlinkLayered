@@ -17,7 +17,7 @@ int main(void)
 
 	while(1)
 	{
-		
+		Blink_Modify();
 	}
 }
 

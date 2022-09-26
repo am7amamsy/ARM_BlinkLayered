@@ -24,7 +24,8 @@
 #define SYSTICK_MAX_VAL	250000
 #define SYSTICK_MIN_VAL	0
 
-#define BUTTON_INC_VAL	500
+#define BUTTON_INC_VAL	1000
+#define BUTTON_MOD_VAL	250
 
 /***************************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
@@ -57,6 +58,7 @@
  ***************************************************************************************/
 void Blink_Init(void);
 void LED_Blink(void);
+void Blink_Modify(void);
 
 #endif  /* Blink_H */
  
